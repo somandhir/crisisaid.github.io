@@ -1,0 +1,4590 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrisisAid - Community-Driven Disaster Management Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+
+    <script src="https://preline.co/assets/vendor/preline/dist/index.js?v=2.5.0"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Merriweather:wght@400;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      section {
+        padding-top: 100px !important;
+        padding-bottom: 100px !important;
+      }
+
+      @media (max-width: 1024px) {
+        section {
+          padding-top: 64px !important;
+          padding-bottom: 64px !important;
+        }
+      }
+
+      @media (max-width: 640px) {
+        section {
+          padding-top: 40px !important;
+          padding-bottom: 40px !important;
+        }
+      }
+    </style>
+    <script>
+      console.log("DOMContentLoaded");
+
+      // Function to handle image loading errors
+      function handleImageError(img) {
+        const width = img.getAttribute("width") || img.clientWidth || 300;
+        const height = img.getAttribute("height") || img.clientHeight || 200;
+        img.src = "https://placehold.co/" + width + "x" + height;
+        img.alt = "Placeholder image";
+      }
+
+      // Function to process an image
+      function processImage(img) {
+        console.log("New image found:", img.src);
+        img.addEventListener("error", () => handleImageError(img));
+      }
+
+      // Function to observe DOM changes and attach error handlers to new images
+      function observeImages() {
+        // Create a MutationObserver instance
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            // Check added nodes for images
+            mutation.addedNodes.forEach((node) => {
+              if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.nodeName === "IMG") {
+                  processImage(node);
+                }
+
+                // Also check for images within added nodes
+                const images = node.getElementsByTagName("img");
+                Array.from(images).forEach(processImage);
+              }
+            });
+          });
+        });
+
+        // Start observing the document with the configured parameters
+        const config = { childList: true, subtree: true };
+        observer.observe(document.body, config);
+
+        // Also handle existing images
+        const existingImages = document.getElementsByTagName("img");
+        Array.from(existingImages).forEach(processImage);
+      }
+
+      // Initialize when DOM is ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", observeImages);
+      } else {
+        observeImages();
+      }
+    </script>
+    <style>
+      *,
+      ::before,
+      ::after {
+        --tw-border-spacing-x: 0;
+        --tw-border-spacing-y: 0;
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-pan-x: ;
+        --tw-pan-y: ;
+        --tw-pinch-zoom: ;
+        --tw-scroll-snap-strictness: proximity;
+        --tw-gradient-from-position: ;
+        --tw-gradient-via-position: ;
+        --tw-gradient-to-position: ;
+        --tw-ordinal: ;
+        --tw-slashed-zero: ;
+        --tw-numeric-figure: ;
+        --tw-numeric-spacing: ;
+        --tw-numeric-fraction: ;
+        --tw-ring-inset: ;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: rgb(59 130 246 / 0.5);
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-colored: 0 0 #0000;
+        --tw-blur: ;
+        --tw-brightness: ;
+        --tw-contrast: ;
+        --tw-grayscale: ;
+        --tw-hue-rotate: ;
+        --tw-invert: ;
+        --tw-saturate: ;
+        --tw-sepia: ;
+        --tw-drop-shadow: ;
+        --tw-backdrop-blur: ;
+        --tw-backdrop-brightness: ;
+        --tw-backdrop-contrast: ;
+        --tw-backdrop-grayscale: ;
+        --tw-backdrop-hue-rotate: ;
+        --tw-backdrop-invert: ;
+        --tw-backdrop-opacity: ;
+        --tw-backdrop-saturate: ;
+        --tw-backdrop-sepia: ;
+        --tw-contain-size: ;
+        --tw-contain-layout: ;
+        --tw-contain-paint: ;
+        --tw-contain-style: ;
+      }
+      ::backdrop {
+        --tw-border-spacing-x: 0;
+        --tw-border-spacing-y: 0;
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-pan-x: ;
+        --tw-pan-y: ;
+        --tw-pinch-zoom: ;
+        --tw-scroll-snap-strictness: proximity;
+        --tw-gradient-from-position: ;
+        --tw-gradient-via-position: ;
+        --tw-gradient-to-position: ;
+        --tw-ordinal: ;
+        --tw-slashed-zero: ;
+        --tw-numeric-figure: ;
+        --tw-numeric-spacing: ;
+        --tw-numeric-fraction: ;
+        --tw-ring-inset: ;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: rgb(59 130 246 / 0.5);
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-colored: 0 0 #0000;
+        --tw-blur: ;
+        --tw-brightness: ;
+        --tw-contrast: ;
+        --tw-grayscale: ;
+        --tw-hue-rotate: ;
+        --tw-invert: ;
+        --tw-saturate: ;
+        --tw-sepia: ;
+        --tw-drop-shadow: ;
+        --tw-backdrop-blur: ;
+        --tw-backdrop-brightness: ;
+        --tw-backdrop-contrast: ;
+        --tw-backdrop-grayscale: ;
+        --tw-backdrop-hue-rotate: ;
+        --tw-backdrop-invert: ;
+        --tw-backdrop-opacity: ;
+        --tw-backdrop-saturate: ;
+        --tw-backdrop-sepia: ;
+        --tw-contain-size: ;
+        --tw-contain-layout: ;
+        --tw-contain-paint: ;
+        --tw-contain-style: ;
+      } /* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e5e7eb;
+      }
+      ::after,
+      ::before {
+        --tw-content: "";
+      }
+      :host,
+      html {
+        scroll-behavior: smooth;
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        tab-size: 4;
+        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        margin: 0;
+        line-height: inherit;
+      }
+      hr {
+        height: 0;
+        color: inherit;
+        border-top-width: 1px;
+      }
+      abbr:where([title]) {
+        -webkit-text-decoration: underline dotted;
+        text-decoration: underline dotted;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      b,
+      strong {
+        font-weight: bolder;
+      }
+      code,
+      kbd,
+      pre,
+      samp {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        font-size: 1em;
+      }
+      small {
+        font-size: 80%;
+      }
+      sub,
+      sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+      }
+      sub {
+        bottom: -0.25em;
+      }
+      sup {
+        top: -0.5em;
+      }
+      table {
+        text-indent: 0;
+        border-color: inherit;
+        border-collapse: collapse;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit;
+        font-feature-settings: inherit;
+        font-variation-settings: inherit;
+        font-size: 100%;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+        color: inherit;
+        margin: 0;
+        padding: 0;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      input:where([type="button"]),
+      input:where([type="reset"]),
+      input:where([type="submit"]) {
+        appearance: button;
+        -webkit-appearance: button;
+        background-color: transparent;
+        background-image: none;
+      }
+      :-moz-focusring {
+        outline: auto;
+      }
+      :-moz-ui-invalid {
+        box-shadow: none;
+      }
+      progress {
+        vertical-align: baseline;
+      }
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button {
+        height: auto;
+      }
+      [type="search"] {
+        appearance: textfield;
+        -webkit-appearance: textfield;
+        outline-offset: -2px;
+      }
+      ::-webkit-search-decoration {
+        -webkit-appearance: none;
+      }
+      ::-webkit-file-upload-button {
+        -webkit-appearance: button;
+        font: inherit;
+      }
+      summary {
+        display: list-item;
+      }
+      blockquote,
+      dd,
+      dl,
+      figure,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      hr,
+      p,
+      pre {
+        margin: 0;
+      }
+      fieldset {
+        margin: 0;
+        padding: 0;
+      }
+      legend {
+        padding: 0;
+      }
+      menu,
+      ol,
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      dialog {
+        padding: 0;
+      }
+      textarea {
+        resize: vertical;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        opacity: 1;
+        color: #9ca3af;
+      }
+      [role="button"],
+      button {
+        cursor: pointer;
+      }
+      :disabled {
+        cursor: default;
+      }
+      audio,
+      canvas,
+      embed,
+      iframe,
+      img,
+      object,
+      svg,
+      video {
+        display: block;
+      }
+      img,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      [hidden]:where(:not([hidden="until-found"])) {
+        display: none;
+      }
+      .pointer-events-none {
+        pointer-events: none;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .relative {
+        position: relative;
+      }
+      .sticky {
+        position: sticky;
+      }
+      .inset-x-0 {
+        left: 0px;
+        right: 0px;
+      }
+      .inset-y-0 {
+        top: 0px;
+        bottom: 0px;
+      }
+      .left-0 {
+        left: 0px;
+      }
+      .top-0 {
+        top: 0px;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .-mr-1 {
+        margin-right: -0.25rem;
+      }
+      .mb-2 {
+        margin-bottom: 0.5rem;
+      }
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+      .mb-8 {
+        margin-bottom: 2rem;
+      }
+      .ml-1 {
+        margin-left: 0.25rem;
+      }
+      .ml-2 {
+        margin-left: 0.5rem;
+      }
+      .ml-4 {
+        margin-left: 1rem;
+      }
+      .mr-2 {
+        margin-right: 0.5rem;
+      }
+      .mt-1 {
+        margin-top: 0.25rem;
+      }
+      .mt-10 {
+        margin-top: 2.5rem;
+      }
+      .mt-12 {
+        margin-top: 3rem;
+      }
+      .mt-3 {
+        margin-top: 0.75rem;
+      }
+      .mt-5 {
+        margin-top: 1.25rem;
+      }
+      .mt-8 {
+        margin-top: 2rem;
+      }
+      .block {
+        display: block;
+      }
+      .inline-block {
+        display: inline-block;
+      }
+      .flex {
+        display: flex;
+      }
+      .inline-flex {
+        display: inline-flex;
+      }
+      .grid {
+        display: grid;
+      }
+      .hidden {
+        display: none;
+      }
+      .h-10 {
+        height: 2.5rem;
+      }
+      .h-3 {
+        height: 0.75rem;
+      }
+      .h-4 {
+        height: 1rem;
+      }
+      .h-5 {
+        height: 1.25rem;
+      }
+      .w-10 {
+        width: 2.5rem;
+      }
+      .w-3 {
+        width: 0.75rem;
+      }
+      .w-4 {
+        width: 1rem;
+      }
+      .w-5 {
+        width: 1.25rem;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .max-w-2xl {
+        max-width: 42rem;
+      }
+      .max-w-3xl {
+        max-width: 48rem;
+      }
+      .max-w-7xl {
+        max-width: 80rem;
+      }
+      .max-w-\[85rem\] {
+        max-width: 85rem;
+      }
+      .flex-none {
+        flex: none;
+      }
+      .flex-shrink-0 {
+        flex-shrink: 0;
+      }
+      .grow {
+        flex-grow: 1;
+      }
+      .basis-full {
+        flex-basis: 100%;
+      }
+      .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .flex-wrap {
+        flex-wrap: wrap;
+      }
+      .items-start {
+        align-items: flex-start;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .gap-2 {
+        gap: 0.5rem;
+      }
+      .gap-8 {
+        gap: 2rem;
+      }
+      .gap-x-0 {
+        column-gap: 0px;
+      }
+      .gap-x-2 {
+        column-gap: 0.5rem;
+      }
+      .gap-x-3 {
+        column-gap: 0.75rem;
+      }
+      .gap-y-4 {
+        row-gap: 1rem;
+      }
+      .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-x-reverse: 0;
+        margin-right: calc(1rem * var(--tw-space-x-reverse));
+        margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+      }
+      .space-y-3 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+      }
+      .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+      }
+      .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+      }
+      .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+      }
+      .overflow-hidden {
+        overflow: hidden;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+      .rounded-md {
+        border-radius: 0.375rem;
+      }
+      .border {
+        border-width: 1px;
+      }
+      .border-b {
+        border-bottom-width: 1px;
+      }
+      .border-gray-200 {
+        --tw-border-opacity: 1;
+        border-color: rgb(229 231 235 / var(--tw-border-opacity));
+      }
+      .border-gray-300 {
+        --tw-border-opacity: 1;
+        border-color: rgb(209 213 219 / var(--tw-border-opacity));
+      }
+      .border-transparent {
+        border-color: transparent;
+      }
+      .border-white\/\[\.5\] {
+        border-color: rgb(255 255 255 / 0.5);
+      }
+      .bg-gray-100 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .bg-gray-50 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+      }
+      .bg-white {
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+      }
+      .p-2 {
+        padding: 0.5rem;
+      }
+      .p-6 {
+        padding: 1.5rem;
+      }
+      .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .px-5 {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .py-12 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+      .py-16 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+      .py-2 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      .py-24 {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      .py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      .py-8 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      .pb-4 {
+        padding-bottom: 1rem;
+      }
+      .pl-3 {
+        padding-left: 0.75rem;
+      }
+      .pl-7 {
+        padding-left: 1.75rem;
+      }
+      .pr-12 {
+        padding-right: 3rem;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .align-middle {
+        vertical-align: middle;
+      }
+      .text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+      }
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+      .text-base {
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+      .text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+      .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+      .font-extrabold {
+        font-weight: 800;
+      }
+      .font-medium {
+        font-weight: 500;
+      }
+      .font-semibold {
+        font-weight: 600;
+      }
+      .leading-normal {
+        line-height: 1.5;
+      }
+      .text-blue-500 {
+        --tw-text-opacity: 1;
+        color: rgb(59 130 246 / var(--tw-text-opacity));
+      }
+      .text-gray-200 {
+        --tw-text-opacity: 1;
+        color: rgb(229 231 235 / var(--tw-text-opacity));
+      }
+      .text-gray-500 {
+        --tw-text-opacity: 1;
+        color: rgb(107 114 128 / var(--tw-text-opacity));
+      }
+      .text-gray-600 {
+        --tw-text-opacity: 1;
+        color: rgb(75 85 99 / var(--tw-text-opacity));
+      }
+      .text-gray-700 {
+        --tw-text-opacity: 1;
+        color: rgb(55 65 81 / var(--tw-text-opacity));
+      }
+      .text-gray-800 {
+        --tw-text-opacity: 1;
+        color: rgb(31 41 55 / var(--tw-text-opacity));
+      }
+      .text-gray-900 {
+        --tw-text-opacity: 1;
+        color: rgb(17 24 39 / var(--tw-text-opacity));
+      }
+      .text-green-500 {
+        --tw-text-opacity: 1;
+        color: rgb(34 197 94 / var(--tw-text-opacity));
+      }
+      .text-red-500 {
+        --tw-text-opacity: 1;
+        color: rgb(239 68 68 / var(--tw-text-opacity));
+      }
+      .text-white {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .text-white\/\[\.5\] {
+        color: rgb(255 255 255 / 0.5);
+      }
+      .text-white\/\[\.8\] {
+        color: rgb(255 255 255 / 0.8);
+      }
+      .text-yellow-400 {
+        --tw-text-opacity: 1;
+        color: rgb(250 204 21 / var(--tw-text-opacity));
+      }
+      .shadow-lg {
+        --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+          0 4px 6px -4px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-md {
+        --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+          0 2px 4px -2px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-sm {
+        --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-xl {
+        --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+          0 8px 10px -6px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .transition {
+        transition-property: color, background-color, border-color, fill, stroke,
+          opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+          -webkit-backdrop-filter;
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter;
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter, -webkit-text-decoration-color,
+          -webkit-backdrop-filter;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .transition-all {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .duration-300 {
+        transition-duration: 300ms;
+      }
+      .hover\:bg-gray-100:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-gray-50:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-white\/\[\.1\]:hover {
+        background-color: rgb(255 255 255 / 0.1);
+      }
+      .hover\:text-white:hover {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .focus\:outline-none:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+      .focus\:ring-2:focus {
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+          var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+          calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+          var(--tw-shadow, 0 0 #0000);
+      }
+      .focus\:ring-blue-600:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(37 99 235 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-white:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-offset-2:focus {
+        --tw-ring-offset-width: 2px;
+      }
+      .focus\:ring-offset-white:focus {
+        --tw-ring-offset-color: #fff;
+      }
+      @media (min-width: 640px) {
+        .sm\:my-6 {
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .sm\:mt-0 {
+          margin-top: 0px;
+        }
+        .sm\:block {
+          display: block;
+        }
+        .sm\:flex {
+          display: flex;
+        }
+        .sm\:hidden {
+          display: none;
+        }
+        .sm\:flex-row {
+          flex-direction: row;
+        }
+        .sm\:flex-nowrap {
+          flex-wrap: nowrap;
+        }
+        .sm\:items-center {
+          align-items: center;
+        }
+        .sm\:justify-start {
+          justify-content: flex-start;
+        }
+        .sm\:justify-end {
+          justify-content: flex-end;
+        }
+        .sm\:justify-between {
+          justify-content: space-between;
+        }
+        .sm\:gap-x-7 {
+          column-gap: 1.75rem;
+        }
+        .sm\:gap-y-0 {
+          row-gap: 0px;
+        }
+        .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-x-reverse: 0;
+          margin-right: calc(1rem * var(--tw-space-x-reverse));
+          margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+        }
+        .sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-y-reverse: 0;
+          margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+          margin-bottom: calc(0px * var(--tw-space-y-reverse));
+        }
+        .sm\:border-l {
+          border-left-width: 1px;
+        }
+        .sm\:border-white\/\[\.3\] {
+          border-color: rgb(255 255 255 / 0.3);
+        }
+        .sm\:px-6 {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+        .sm\:py-0 {
+          padding-top: 0px;
+          padding-bottom: 0px;
+        }
+        .sm\:py-6 {
+          padding-top: 1.5rem;
+          padding-bottom: 1.5rem;
+        }
+        .sm\:pl-6 {
+          padding-left: 1.5rem;
+        }
+        .sm\:pl-7 {
+          padding-left: 1.75rem;
+        }
+        .sm\:text-4xl {
+          font-size: 2.25rem;
+          line-height: 2.5rem;
+        }
+        .sm\:text-5xl {
+          font-size: 3rem;
+          line-height: 1;
+        }
+        .sm\:text-sm {
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+        }
+      }
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .md\:text-6xl {
+          font-size: 3.75rem;
+          line-height: 1;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:mt-0 {
+          margin-top: 0px;
+        }
+        .lg\:flex {
+          display: flex;
+        }
+        .lg\:w-1\/2 {
+          width: 50%;
+        }
+        .lg\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .lg\:items-center {
+          align-items: center;
+        }
+        .lg\:justify-between {
+          justify-content: space-between;
+        }
+        .lg\:px-8 {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+        .lg\:text-7xl {
+          font-size: 4.5rem;
+          line-height: 1;
+        }
+      }
+    </style>
+    <style>
+      *,
+      ::before,
+      ::after {
+        --tw-border-spacing-x: 0;
+        --tw-border-spacing-y: 0;
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-pan-x: ;
+        --tw-pan-y: ;
+        --tw-pinch-zoom: ;
+        --tw-scroll-snap-strictness: proximity;
+        --tw-gradient-from-position: ;
+        --tw-gradient-via-position: ;
+        --tw-gradient-to-position: ;
+        --tw-ordinal: ;
+        --tw-slashed-zero: ;
+        --tw-numeric-figure: ;
+        --tw-numeric-spacing: ;
+        --tw-numeric-fraction: ;
+        --tw-ring-inset: ;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: rgb(59 130 246 / 0.5);
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-colored: 0 0 #0000;
+        --tw-blur: ;
+        --tw-brightness: ;
+        --tw-contrast: ;
+        --tw-grayscale: ;
+        --tw-hue-rotate: ;
+        --tw-invert: ;
+        --tw-saturate: ;
+        --tw-sepia: ;
+        --tw-drop-shadow: ;
+        --tw-backdrop-blur: ;
+        --tw-backdrop-brightness: ;
+        --tw-backdrop-contrast: ;
+        --tw-backdrop-grayscale: ;
+        --tw-backdrop-hue-rotate: ;
+        --tw-backdrop-invert: ;
+        --tw-backdrop-opacity: ;
+        --tw-backdrop-saturate: ;
+        --tw-backdrop-sepia: ;
+        --tw-contain-size: ;
+        --tw-contain-layout: ;
+        --tw-contain-paint: ;
+        --tw-contain-style: ;
+      }
+      ::backdrop {
+        --tw-border-spacing-x: 0;
+        --tw-border-spacing-y: 0;
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-pan-x: ;
+        --tw-pan-y: ;
+        --tw-pinch-zoom: ;
+        --tw-scroll-snap-strictness: proximity;
+        --tw-gradient-from-position: ;
+        --tw-gradient-via-position: ;
+        --tw-gradient-to-position: ;
+        --tw-ordinal: ;
+        --tw-slashed-zero: ;
+        --tw-numeric-figure: ;
+        --tw-numeric-spacing: ;
+        --tw-numeric-fraction: ;
+        --tw-ring-inset: ;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: rgb(59 130 246 / 0.5);
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-colored: 0 0 #0000;
+        --tw-blur: ;
+        --tw-brightness: ;
+        --tw-contrast: ;
+        --tw-grayscale: ;
+        --tw-hue-rotate: ;
+        --tw-invert: ;
+        --tw-saturate: ;
+        --tw-sepia: ;
+        --tw-drop-shadow: ;
+        --tw-backdrop-blur: ;
+        --tw-backdrop-brightness: ;
+        --tw-backdrop-contrast: ;
+        --tw-backdrop-grayscale: ;
+        --tw-backdrop-hue-rotate: ;
+        --tw-backdrop-invert: ;
+        --tw-backdrop-opacity: ;
+        --tw-backdrop-saturate: ;
+        --tw-backdrop-sepia: ;
+        --tw-contain-size: ;
+        --tw-contain-layout: ;
+        --tw-contain-paint: ;
+        --tw-contain-style: ;
+      } /* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e5e7eb;
+      }
+      ::after,
+      ::before {
+        --tw-content: "";
+      }
+      :host,
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        tab-size: 4;
+        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        margin: 0;
+        line-height: inherit;
+      }
+      hr {
+        height: 0;
+        color: inherit;
+        border-top-width: 1px;
+      }
+      abbr:where([title]) {
+        -webkit-text-decoration: underline dotted;
+        text-decoration: underline dotted;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      b,
+      strong {
+        font-weight: bolder;
+      }
+      code,
+      kbd,
+      pre,
+      samp {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        font-size: 1em;
+      }
+      small {
+        font-size: 80%;
+      }
+      sub,
+      sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+      }
+      sub {
+        bottom: -0.25em;
+      }
+      sup {
+        top: -0.5em;
+      }
+      table {
+        text-indent: 0;
+        border-color: inherit;
+        border-collapse: collapse;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit;
+        font-feature-settings: inherit;
+        font-variation-settings: inherit;
+        font-size: 100%;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+        color: inherit;
+        margin: 0;
+        padding: 0;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      input:where([type="button"]),
+      input:where([type="reset"]),
+      input:where([type="submit"]) {
+        appearance: button;
+        -webkit-appearance: button;
+        background-color: transparent;
+        background-image: none;
+      }
+      :-moz-focusring {
+        outline: auto;
+      }
+      :-moz-ui-invalid {
+        box-shadow: none;
+      }
+      progress {
+        vertical-align: baseline;
+      }
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button {
+        height: auto;
+      }
+      [type="search"] {
+        appearance: textfield;
+        -webkit-appearance: textfield;
+        outline-offset: -2px;
+      }
+      ::-webkit-search-decoration {
+        -webkit-appearance: none;
+      }
+      ::-webkit-file-upload-button {
+        -webkit-appearance: button;
+        font: inherit;
+      }
+      summary {
+        display: list-item;
+      }
+      blockquote,
+      dd,
+      dl,
+      figure,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      hr,
+      p,
+      pre {
+        margin: 0;
+      }
+      fieldset {
+        margin: 0;
+        padding: 0;
+      }
+      legend {
+        padding: 0;
+      }
+      menu,
+      ol,
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      dialog {
+        padding: 0;
+      }
+      textarea {
+        resize: vertical;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        opacity: 1;
+        color: #9ca3af;
+      }
+      [role="button"],
+      button {
+        cursor: pointer;
+      }
+      :disabled {
+        cursor: default;
+      }
+      audio,
+      canvas,
+      embed,
+      iframe,
+      img,
+      object,
+      svg,
+      video {
+        display: block;
+      }
+      img,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      [hidden]:where(:not([hidden="until-found"])) {
+        display: none;
+      }
+      [type="text"],
+      input:where(:not([type])),
+      [type="email"],
+      [type="url"],
+      [type="password"],
+      [type="number"],
+      [type="date"],
+      [type="datetime-local"],
+      [type="month"],
+      [type="search"],
+      [type="tel"],
+      [type="time"],
+      [type="week"],
+      [multiple],
+      textarea,
+      select {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #fff;
+        border-color: #6b7280;
+        border-width: 1px;
+        border-radius: 0px;
+        padding-top: 0.5rem;
+        padding-right: 0.75rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        --tw-shadow: 0 0 #0000;
+      }
+      [type="text"]:focus,
+      input:where(:not([type])):focus,
+      [type="email"]:focus,
+      [type="url"]:focus,
+      [type="password"]:focus,
+      [type="number"]:focus,
+      [type="date"]:focus,
+      [type="datetime-local"]:focus,
+      [type="month"]:focus,
+      [type="search"]:focus,
+      [type="tel"]:focus,
+      [type="time"]:focus,
+      [type="week"]:focus,
+      [multiple]:focus,
+      textarea:focus,
+      select:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        --tw-ring-inset: var(--tw-empty, /*!*/ /*!*/);
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: #2563eb;
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+          var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+          calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+          var(--tw-shadow);
+        border-color: #2563eb;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #6b7280;
+        opacity: 1;
+      }
+      ::-webkit-datetime-edit-fields-wrapper {
+        padding: 0;
+      }
+      ::-webkit-date-and-time-value {
+        min-height: 1.5em;
+        text-align: inherit;
+      }
+      ::-webkit-datetime-edit {
+        display: inline-flex;
+      }
+      ::-webkit-datetime-edit,
+      ::-webkit-datetime-edit-year-field,
+      ::-webkit-datetime-edit-month-field,
+      ::-webkit-datetime-edit-day-field,
+      ::-webkit-datetime-edit-hour-field,
+      ::-webkit-datetime-edit-minute-field,
+      ::-webkit-datetime-edit-second-field,
+      ::-webkit-datetime-edit-millisecond-field,
+      ::-webkit-datetime-edit-meridiem-field {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        print-color-adjust: exact;
+      }
+      [multiple],
+      [size]:where(select:not([size="1"])) {
+        background-image: initial;
+        background-position: initial;
+        background-repeat: unset;
+        background-size: initial;
+        padding-right: 0.75rem;
+        print-color-adjust: unset;
+      }
+      [type="checkbox"],
+      [type="radio"] {
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 0;
+        print-color-adjust: exact;
+        display: inline-block;
+        vertical-align: middle;
+        background-origin: border-box;
+        -webkit-user-select: none;
+        user-select: none;
+        flex-shrink: 0;
+        height: 1rem;
+        width: 1rem;
+        color: #2563eb;
+        background-color: #fff;
+        border-color: #6b7280;
+        border-width: 1px;
+        --tw-shadow: 0 0 #0000;
+      }
+      [type="checkbox"] {
+        border-radius: 0px;
+      }
+      [type="radio"] {
+        border-radius: 100%;
+      }
+      [type="checkbox"]:focus,
+      [type="radio"]:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        --tw-ring-inset: var(--tw-empty, /*!*/ /*!*/);
+        --tw-ring-offset-width: 2px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: #2563eb;
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+          var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+          calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+          var(--tw-shadow);
+      }
+      [type="checkbox"]:checked,
+      [type="radio"]:checked {
+        border-color: transparent;
+        background-color: currentColor;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      [type="checkbox"]:checked {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+      }
+      @media (forced-colors: active) {
+        [type="checkbox"]:checked {
+          -webkit-appearance: auto;
+          appearance: auto;
+        }
+      }
+      [type="radio"]:checked {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+      }
+      @media (forced-colors: active) {
+        [type="radio"]:checked {
+          -webkit-appearance: auto;
+          appearance: auto;
+        }
+      }
+      [type="checkbox"]:checked:hover,
+      [type="checkbox"]:checked:focus,
+      [type="radio"]:checked:hover,
+      [type="radio"]:checked:focus {
+        border-color: transparent;
+        background-color: currentColor;
+      }
+      [type="checkbox"]:indeterminate {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
+        border-color: transparent;
+        background-color: currentColor;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      @media (forced-colors: active) {
+        [type="checkbox"]:indeterminate {
+          -webkit-appearance: auto;
+          appearance: auto;
+        }
+      }
+      [type="checkbox"]:indeterminate:hover,
+      [type="checkbox"]:indeterminate:focus {
+        border-color: transparent;
+        background-color: currentColor;
+      }
+      [type="file"] {
+        background: unset;
+        border-color: inherit;
+        border-width: 0;
+        border-radius: 0;
+        padding: 0;
+        font-size: unset;
+        line-height: inherit;
+      }
+      [type="file"]:focus {
+        outline: 1px solid ButtonText;
+        outline: 1px auto -webkit-focus-ring-color;
+      }
+      .pointer-events-none {
+        pointer-events: none;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .relative {
+        position: relative;
+      }
+      .sticky {
+        position: sticky;
+      }
+      .inset-x-0 {
+        left: 0px;
+        right: 0px;
+      }
+      .inset-y-0 {
+        top: 0px;
+        bottom: 0px;
+      }
+      .left-0 {
+        left: 0px;
+      }
+      .top-0 {
+        top: 0px;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .-mr-1 {
+        margin-right: -0.25rem;
+      }
+      .mb-2 {
+        margin-bottom: 0.5rem;
+      }
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+      .mb-8 {
+        margin-bottom: 2rem;
+      }
+      .ml-1 {
+        margin-left: 0.25rem;
+      }
+      .ml-2 {
+        margin-left: 0.5rem;
+      }
+      .ml-4 {
+        margin-left: 1rem;
+      }
+      .mr-2 {
+        margin-right: 0.5rem;
+      }
+      .mt-1 {
+        margin-top: 0.25rem;
+      }
+      .mt-10 {
+        margin-top: 2.5rem;
+      }
+      .mt-12 {
+        margin-top: 3rem;
+      }
+      .mt-3 {
+        margin-top: 0.75rem;
+      }
+      .mt-5 {
+        margin-top: 1.25rem;
+      }
+      .mt-8 {
+        margin-top: 2rem;
+      }
+      .block {
+        display: block;
+      }
+      .inline-block {
+        display: inline-block;
+      }
+      .flex {
+        display: flex;
+      }
+      .inline-flex {
+        display: inline-flex;
+      }
+      .grid {
+        display: grid;
+      }
+      .hidden {
+        display: none;
+      }
+      .h-10 {
+        height: 2.5rem;
+      }
+      .h-3 {
+        height: 0.75rem;
+      }
+      .h-4 {
+        height: 1rem;
+      }
+      .h-5 {
+        height: 1.25rem;
+      }
+      .w-10 {
+        width: 2.5rem;
+      }
+      .w-3 {
+        width: 0.75rem;
+      }
+      .w-4 {
+        width: 1rem;
+      }
+      .w-5 {
+        width: 1.25rem;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .max-w-2xl {
+        max-width: 42rem;
+      }
+      .max-w-3xl {
+        max-width: 48rem;
+      }
+      .max-w-7xl {
+        max-width: 80rem;
+      }
+      .max-w-\[85rem\] {
+        max-width: 85rem;
+      }
+      .flex-none {
+        flex: none;
+      }
+      .flex-shrink-0 {
+        flex-shrink: 0;
+      }
+      .grow {
+        flex-grow: 1;
+      }
+      .basis-full {
+        flex-basis: 100%;
+      }
+      .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .flex-wrap {
+        flex-wrap: wrap;
+      }
+      .items-start {
+        align-items: flex-start;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .gap-2 {
+        gap: 0.5rem;
+      }
+      .gap-8 {
+        gap: 2rem;
+      }
+      .gap-x-0 {
+        column-gap: 0px;
+      }
+      .gap-x-2 {
+        column-gap: 0.5rem;
+      }
+      .gap-x-3 {
+        column-gap: 0.75rem;
+      }
+      .gap-y-4 {
+        row-gap: 1rem;
+      }
+      .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-x-reverse: 0;
+        margin-right: calc(1rem * var(--tw-space-x-reverse));
+        margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+      }
+      .space-y-3 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+      }
+      .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+      }
+      .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+      }
+      .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+      }
+      .overflow-hidden {
+        overflow: hidden;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+      .rounded-md {
+        border-radius: 0.375rem;
+      }
+      .border {
+        border-width: 1px;
+      }
+      .border-b {
+        border-bottom-width: 1px;
+      }
+      .border-gray-200 {
+        --tw-border-opacity: 1;
+        border-color: rgb(229 231 235 / var(--tw-border-opacity));
+      }
+      .border-gray-300 {
+        --tw-border-opacity: 1;
+        border-color: rgb(209 213 219 / var(--tw-border-opacity));
+      }
+      .border-transparent {
+        border-color: transparent;
+      }
+      .border-white\/\[\.5\] {
+        border-color: rgb(255 255 255 / 0.5);
+      }
+      .bg-gray-100 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .bg-gray-50 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+      }
+      .bg-white {
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+      }
+      .p-2 {
+        padding: 0.5rem;
+      }
+      .p-6 {
+        padding: 1.5rem;
+      }
+      .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .px-5 {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .py-12 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+      .py-16 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+      .py-2 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      .py-24 {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      .py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      .py-8 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      .pb-4 {
+        padding-bottom: 1rem;
+      }
+      .pl-3 {
+        padding-left: 0.75rem;
+      }
+      .pl-7 {
+        padding-left: 1.75rem;
+      }
+      .pr-12 {
+        padding-right: 3rem;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .align-middle {
+        vertical-align: middle;
+      }
+      .text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+      }
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+      .text-base {
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+      .text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+      .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+      .font-extrabold {
+        font-weight: 800;
+      }
+      .font-medium {
+        font-weight: 500;
+      }
+      .font-semibold {
+        font-weight: 600;
+      }
+      .leading-normal {
+        line-height: 1.5;
+      }
+      .text-blue-500 {
+        --tw-text-opacity: 1;
+        color: rgb(59 130 246 / var(--tw-text-opacity));
+      }
+      .text-gray-200 {
+        --tw-text-opacity: 1;
+        color: rgb(229 231 235 / var(--tw-text-opacity));
+      }
+      .text-gray-500 {
+        --tw-text-opacity: 1;
+        color: rgb(107 114 128 / var(--tw-text-opacity));
+      }
+      .text-gray-600 {
+        --tw-text-opacity: 1;
+        color: rgb(75 85 99 / var(--tw-text-opacity));
+      }
+      .text-gray-700 {
+        --tw-text-opacity: 1;
+        color: rgb(55 65 81 / var(--tw-text-opacity));
+      }
+      .text-gray-800 {
+        --tw-text-opacity: 1;
+        color: rgb(31 41 55 / var(--tw-text-opacity));
+      }
+      .text-gray-900 {
+        --tw-text-opacity: 1;
+        color: rgb(17 24 39 / var(--tw-text-opacity));
+      }
+      .text-green-500 {
+        --tw-text-opacity: 1;
+        color: rgb(34 197 94 / var(--tw-text-opacity));
+      }
+      .text-red-500 {
+        --tw-text-opacity: 1;
+        color: rgb(239 68 68 / var(--tw-text-opacity));
+      }
+      .text-white {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .text-white\/\[\.5\] {
+        color: rgb(255 255 255 / 0.5);
+      }
+      .text-white\/\[\.8\] {
+        color: rgb(255 255 255 / 0.8);
+      }
+      .text-yellow-400 {
+        --tw-text-opacity: 1;
+        color: rgb(250 204 21 / var(--tw-text-opacity));
+      }
+      .shadow-lg {
+        --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+          0 4px 6px -4px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-md {
+        --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+          0 2px 4px -2px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-sm {
+        --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-xl {
+        --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+          0 8px 10px -6px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .transition {
+        transition-property: color, background-color, border-color, fill, stroke,
+          opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+          -webkit-backdrop-filter;
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter;
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter, -webkit-text-decoration-color,
+          -webkit-backdrop-filter;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .transition-all {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .duration-300 {
+        transition-duration: 300ms;
+      }
+      .hover\:bg-gray-100:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-gray-50:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-white\/\[\.1\]:hover {
+        background-color: rgb(255 255 255 / 0.1);
+      }
+      .hover\:text-white:hover {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .focus\:outline-none:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+      .focus\:ring-2:focus {
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+          var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+          calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+          var(--tw-shadow, 0 0 #0000);
+      }
+      .focus\:ring-blue-600:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(37 99 235 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-white:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-offset-2:focus {
+        --tw-ring-offset-width: 2px;
+      }
+      .focus\:ring-offset-white:focus {
+        --tw-ring-offset-color: #fff;
+      }
+      @media (min-width: 640px) {
+        .sm\:my-6 {
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .sm\:mt-0 {
+          margin-top: 0px;
+        }
+        .sm\:block {
+          display: block;
+        }
+        .sm\:flex {
+          display: flex;
+        }
+        .sm\:hidden {
+          display: none;
+        }
+        .sm\:flex-row {
+          flex-direction: row;
+        }
+        .sm\:flex-nowrap {
+          flex-wrap: nowrap;
+        }
+        .sm\:items-center {
+          align-items: center;
+        }
+        .sm\:justify-start {
+          justify-content: flex-start;
+        }
+        .sm\:justify-end {
+          justify-content: flex-end;
+        }
+        .sm\:justify-between {
+          justify-content: space-between;
+        }
+        .sm\:gap-x-7 {
+          column-gap: 1.75rem;
+        }
+        .sm\:gap-y-0 {
+          row-gap: 0px;
+        }
+        .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-x-reverse: 0;
+          margin-right: calc(1rem * var(--tw-space-x-reverse));
+          margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+        }
+        .sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-y-reverse: 0;
+          margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+          margin-bottom: calc(0px * var(--tw-space-y-reverse));
+        }
+        .sm\:border-l {
+          border-left-width: 1px;
+        }
+        .sm\:border-white\/\[\.3\] {
+          border-color: rgb(255 255 255 / 0.3);
+        }
+        .sm\:px-6 {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+        .sm\:py-0 {
+          padding-top: 0px;
+          padding-bottom: 0px;
+        }
+        .sm\:py-6 {
+          padding-top: 1.5rem;
+          padding-bottom: 1.5rem;
+        }
+        .sm\:pl-6 {
+          padding-left: 1.5rem;
+        }
+        .sm\:pl-7 {
+          padding-left: 1.75rem;
+        }
+        .sm\:text-4xl {
+          font-size: 2.25rem;
+          line-height: 2.5rem;
+        }
+        .sm\:text-5xl {
+          font-size: 3rem;
+          line-height: 1;
+        }
+        .sm\:text-sm {
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+        }
+      }
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .md\:text-6xl {
+          font-size: 3.75rem;
+          line-height: 1;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:mt-0 {
+          margin-top: 0px;
+        }
+        .lg\:flex {
+          display: flex;
+        }
+        .lg\:w-1\/2 {
+          width: 50%;
+        }
+        .lg\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .lg\:items-center {
+          align-items: center;
+        }
+        .lg\:justify-between {
+          justify-content: space-between;
+        }
+        .lg\:px-8 {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+        .lg\:text-7xl {
+          font-size: 4.5rem;
+          line-height: 1;
+        }
+      }
+    </style>
+    <style>
+      *,
+      ::before,
+      ::after {
+        --tw-border-spacing-x: 0;
+        --tw-border-spacing-y: 0;
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-pan-x: ;
+        --tw-pan-y: ;
+        --tw-pinch-zoom: ;
+        --tw-scroll-snap-strictness: proximity;
+        --tw-gradient-from-position: ;
+        --tw-gradient-via-position: ;
+        --tw-gradient-to-position: ;
+        --tw-ordinal: ;
+        --tw-slashed-zero: ;
+        --tw-numeric-figure: ;
+        --tw-numeric-spacing: ;
+        --tw-numeric-fraction: ;
+        --tw-ring-inset: ;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: rgb(59 130 246 / 0.5);
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-colored: 0 0 #0000;
+        --tw-blur: ;
+        --tw-brightness: ;
+        --tw-contrast: ;
+        --tw-grayscale: ;
+        --tw-hue-rotate: ;
+        --tw-invert: ;
+        --tw-saturate: ;
+        --tw-sepia: ;
+        --tw-drop-shadow: ;
+        --tw-backdrop-blur: ;
+        --tw-backdrop-brightness: ;
+        --tw-backdrop-contrast: ;
+        --tw-backdrop-grayscale: ;
+        --tw-backdrop-hue-rotate: ;
+        --tw-backdrop-invert: ;
+        --tw-backdrop-opacity: ;
+        --tw-backdrop-saturate: ;
+        --tw-backdrop-sepia: ;
+        --tw-contain-size: ;
+        --tw-contain-layout: ;
+        --tw-contain-paint: ;
+        --tw-contain-style: ;
+      }
+      ::backdrop {
+        --tw-border-spacing-x: 0;
+        --tw-border-spacing-y: 0;
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-pan-x: ;
+        --tw-pan-y: ;
+        --tw-pinch-zoom: ;
+        --tw-scroll-snap-strictness: proximity;
+        --tw-gradient-from-position: ;
+        --tw-gradient-via-position: ;
+        --tw-gradient-to-position: ;
+        --tw-ordinal: ;
+        --tw-slashed-zero: ;
+        --tw-numeric-figure: ;
+        --tw-numeric-spacing: ;
+        --tw-numeric-fraction: ;
+        --tw-ring-inset: ;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-color: rgb(59 130 246 / 0.5);
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-colored: 0 0 #0000;
+        --tw-blur: ;
+        --tw-brightness: ;
+        --tw-contrast: ;
+        --tw-grayscale: ;
+        --tw-hue-rotate: ;
+        --tw-invert: ;
+        --tw-saturate: ;
+        --tw-sepia: ;
+        --tw-drop-shadow: ;
+        --tw-backdrop-blur: ;
+        --tw-backdrop-brightness: ;
+        --tw-backdrop-contrast: ;
+        --tw-backdrop-grayscale: ;
+        --tw-backdrop-hue-rotate: ;
+        --tw-backdrop-invert: ;
+        --tw-backdrop-opacity: ;
+        --tw-backdrop-saturate: ;
+        --tw-backdrop-sepia: ;
+        --tw-contain-size: ;
+        --tw-contain-layout: ;
+        --tw-contain-paint: ;
+        --tw-contain-style: ;
+      } /* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e5e7eb;
+      }
+      ::after,
+      ::before {
+        --tw-content: "";
+      }
+      :host,
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        tab-size: 4;
+        font-family: Inter, sans-serif;
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        margin: 0;
+        line-height: inherit;
+      }
+      hr {
+        height: 0;
+        color: inherit;
+        border-top-width: 1px;
+      }
+      abbr:where([title]) {
+        -webkit-text-decoration: underline dotted;
+        text-decoration: underline dotted;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      b,
+      strong {
+        font-weight: bolder;
+      }
+      code,
+      kbd,
+      pre,
+      samp {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+        font-size: 1em;
+      }
+      small {
+        font-size: 80%;
+      }
+      sub,
+      sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+      }
+      sub {
+        bottom: -0.25em;
+      }
+      sup {
+        top: -0.5em;
+      }
+      table {
+        text-indent: 0;
+        border-color: inherit;
+        border-collapse: collapse;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit;
+        font-feature-settings: inherit;
+        font-variation-settings: inherit;
+        font-size: 100%;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+        color: inherit;
+        margin: 0;
+        padding: 0;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      input:where([type="button"]),
+      input:where([type="reset"]),
+      input:where([type="submit"]) {
+        appearance: button;
+        -webkit-appearance: button;
+        background-color: transparent;
+        background-image: none;
+      }
+      :-moz-focusring {
+        outline: auto;
+      }
+      :-moz-ui-invalid {
+        box-shadow: none;
+      }
+      progress {
+        vertical-align: baseline;
+      }
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button {
+        height: auto;
+      }
+      [type="search"] {
+        appearance: textfield;
+        -webkit-appearance: textfield;
+        outline-offset: -2px;
+      }
+      ::-webkit-search-decoration {
+        -webkit-appearance: none;
+      }
+      ::-webkit-file-upload-button {
+        -webkit-appearance: button;
+        font: inherit;
+      }
+      summary {
+        display: list-item;
+      }
+      blockquote,
+      dd,
+      dl,
+      figure,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      hr,
+      p,
+      pre {
+        margin: 0;
+      }
+      fieldset {
+        margin: 0;
+        padding: 0;
+      }
+      legend {
+        padding: 0;
+      }
+      menu,
+      ol,
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      dialog {
+        padding: 0;
+      }
+      textarea {
+        resize: vertical;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        opacity: 1;
+        color: #9ca3af;
+      }
+      [role="button"],
+      button {
+        cursor: pointer;
+      }
+      :disabled {
+        cursor: default;
+      }
+      audio,
+      canvas,
+      embed,
+      iframe,
+      img,
+      object,
+      svg,
+      video {
+        display: block;
+      }
+      img,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      [hidden]:where(:not([hidden="until-found"])) {
+        display: none;
+      }
+      .pointer-events-none {
+        pointer-events: none;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .relative {
+        position: relative;
+      }
+      .sticky {
+        position: sticky;
+      }
+      .inset-x-0 {
+        left: 0px;
+        right: 0px;
+      }
+      .inset-y-0 {
+        top: 0px;
+        bottom: 0px;
+      }
+      .left-0 {
+        left: 0px;
+      }
+      .top-0 {
+        top: 0px;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .-mr-1 {
+        margin-right: -0.25rem;
+      }
+      .mb-2 {
+        margin-bottom: 0.5rem;
+      }
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+      .mb-8 {
+        margin-bottom: 2rem;
+      }
+      .ml-1 {
+        margin-left: 0.25rem;
+      }
+      .ml-2 {
+        margin-left: 0.5rem;
+      }
+      .ml-4 {
+        margin-left: 1rem;
+      }
+      .mr-2 {
+        margin-right: 0.5rem;
+      }
+      .mt-1 {
+        margin-top: 0.25rem;
+      }
+      .mt-10 {
+        margin-top: 2.5rem;
+      }
+      .mt-12 {
+        margin-top: 3rem;
+      }
+      .mt-3 {
+        margin-top: 0.75rem;
+      }
+      .mt-5 {
+        margin-top: 1.25rem;
+      }
+      .mt-8 {
+        margin-top: 2rem;
+      }
+      .block {
+        display: block;
+      }
+      .inline-block {
+        display: inline-block;
+      }
+      .flex {
+        display: flex;
+      }
+      .inline-flex {
+        display: inline-flex;
+      }
+      .grid {
+        display: grid;
+      }
+      .hidden {
+        display: none;
+      }
+      .h-10 {
+        height: 2.5rem;
+      }
+      .h-3 {
+        height: 0.75rem;
+      }
+      .h-4 {
+        height: 1rem;
+      }
+      .h-5 {
+        height: 1.25rem;
+      }
+      .w-10 {
+        width: 2.5rem;
+      }
+      .w-3 {
+        width: 0.75rem;
+      }
+      .w-4 {
+        width: 1rem;
+      }
+      .w-5 {
+        width: 1.25rem;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .max-w-2xl {
+        max-width: 42rem;
+      }
+      .max-w-3xl {
+        max-width: 48rem;
+      }
+      .max-w-7xl {
+        max-width: 80rem;
+      }
+      .max-w-\[85rem\] {
+        max-width: 85rem;
+      }
+      .flex-none {
+        flex: none;
+      }
+      .flex-shrink-0 {
+        flex-shrink: 0;
+      }
+      .grow {
+        flex-grow: 1;
+      }
+      .basis-full {
+        flex-basis: 100%;
+      }
+      .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .flex-wrap {
+        flex-wrap: wrap;
+      }
+      .items-start {
+        align-items: flex-start;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .gap-2 {
+        gap: 0.5rem;
+      }
+      .gap-8 {
+        gap: 2rem;
+      }
+      .gap-x-0 {
+        column-gap: 0px;
+      }
+      .gap-x-2 {
+        column-gap: 0.5rem;
+      }
+      .gap-x-3 {
+        column-gap: 0.75rem;
+      }
+      .gap-y-4 {
+        row-gap: 1rem;
+      }
+      .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-x-reverse: 0;
+        margin-right: calc(1rem * var(--tw-space-x-reverse));
+        margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+      }
+      .space-y-3 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+      }
+      .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+      }
+      .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+      }
+      .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+      }
+      .overflow-hidden {
+        overflow: hidden;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+      .rounded-md {
+        border-radius: 0.375rem;
+      }
+      .border {
+        border-width: 1px;
+      }
+      .border-b {
+        border-bottom-width: 1px;
+      }
+      .border-gray-200 {
+        --tw-border-opacity: 1;
+        border-color: rgb(229 231 235 / var(--tw-border-opacity));
+      }
+      .border-gray-300 {
+        --tw-border-opacity: 1;
+        border-color: rgb(209 213 219 / var(--tw-border-opacity));
+      }
+      .border-primary-600 {
+        --tw-border-opacity: 1;
+        border-color: rgb(0 82 204 / var(--tw-border-opacity));
+      }
+      .border-transparent {
+        border-color: transparent;
+      }
+      .border-white\/\[\.5\] {
+        border-color: rgb(255 255 255 / 0.5);
+      }
+      .bg-gray-100 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .bg-gray-50 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+      }
+      .bg-primary-100 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(204 224 255 / var(--tw-bg-opacity));
+      }
+      .bg-primary-200 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(153 194 255 / var(--tw-bg-opacity));
+      }
+      .bg-primary-500 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(0 102 255 / var(--tw-bg-opacity));
+      }
+      .bg-primary-600 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(0 82 204 / var(--tw-bg-opacity));
+      }
+      .bg-white {
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+      }
+      .p-2 {
+        padding: 0.5rem;
+      }
+      .p-6 {
+        padding: 1.5rem;
+      }
+      .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .px-5 {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .py-12 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+      .py-16 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+      .py-2 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      .py-24 {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      .py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      .py-8 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      .pb-4 {
+        padding-bottom: 1rem;
+      }
+      .pl-3 {
+        padding-left: 0.75rem;
+      }
+      .pl-7 {
+        padding-left: 1.75rem;
+      }
+      .pr-12 {
+        padding-right: 3rem;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .align-middle {
+        vertical-align: middle;
+      }
+      .text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+      }
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+      .text-base {
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+      .text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+      .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+      .font-extrabold {
+        font-weight: 800;
+      }
+      .font-medium {
+        font-weight: 500;
+      }
+      .font-semibold {
+        font-weight: 600;
+      }
+      .leading-normal {
+        line-height: 1.5;
+      }
+      .text-blue-500 {
+        --tw-text-opacity: 1;
+        color: rgb(59 130 246 / var(--tw-text-opacity));
+      }
+      .text-gray-200 {
+        --tw-text-opacity: 1;
+        color: rgb(229 231 235 / var(--tw-text-opacity));
+      }
+      .text-gray-500 {
+        --tw-text-opacity: 1;
+        color: rgb(107 114 128 / var(--tw-text-opacity));
+      }
+      .text-gray-600 {
+        --tw-text-opacity: 1;
+        color: rgb(75 85 99 / var(--tw-text-opacity));
+      }
+      .text-gray-700 {
+        --tw-text-opacity: 1;
+        color: rgb(55 65 81 / var(--tw-text-opacity));
+      }
+      .text-gray-800 {
+        --tw-text-opacity: 1;
+        color: rgb(31 41 55 / var(--tw-text-opacity));
+      }
+      .text-gray-900 {
+        --tw-text-opacity: 1;
+        color: rgb(17 24 39 / var(--tw-text-opacity));
+      }
+      .text-green-500 {
+        --tw-text-opacity: 1;
+        color: rgb(34 197 94 / var(--tw-text-opacity));
+      }
+      .text-primary-100 {
+        --tw-text-opacity: 1;
+        color: rgb(204 224 255 / var(--tw-text-opacity));
+      }
+      .text-primary-500 {
+        --tw-text-opacity: 1;
+        color: rgb(0 102 255 / var(--tw-text-opacity));
+      }
+      .text-primary-600 {
+        --tw-text-opacity: 1;
+        color: rgb(0 82 204 / var(--tw-text-opacity));
+      }
+      .text-red-500 {
+        --tw-text-opacity: 1;
+        color: rgb(239 68 68 / var(--tw-text-opacity));
+      }
+      .text-white {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .text-white\/\[\.5\] {
+        color: rgb(255 255 255 / 0.5);
+      }
+      .text-white\/\[\.8\] {
+        color: rgb(255 255 255 / 0.8);
+      }
+      .text-yellow-400 {
+        --tw-text-opacity: 1;
+        color: rgb(250 204 21 / var(--tw-text-opacity));
+      }
+      .shadow-lg {
+        --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+          0 4px 6px -4px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-md {
+        --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+          0 2px 4px -2px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-sm {
+        --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-xl {
+        --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+          0 8px 10px -6px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .transition {
+        transition-property: color, background-color, border-color, fill, stroke,
+          opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+          -webkit-backdrop-filter;
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter;
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter, -webkit-text-decoration-color,
+          -webkit-backdrop-filter;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .transition-all {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .duration-300 {
+        transition-duration: 300ms;
+      }
+      .hover\:bg-gray-100:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-gray-50:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-primary-50:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(230 240 255 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-primary-700:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(0 61 153 / var(--tw-bg-opacity));
+      }
+      .hover\:bg-white\/\[\.1\]:hover {
+        background-color: rgb(255 255 255 / 0.1);
+      }
+      .hover\:text-primary-500:hover {
+        --tw-text-opacity: 1;
+        color: rgb(0 102 255 / var(--tw-text-opacity));
+      }
+      .hover\:text-primary-600:hover {
+        --tw-text-opacity: 1;
+        color: rgb(0 82 204 / var(--tw-text-opacity));
+      }
+      .hover\:text-primary-700:hover {
+        --tw-text-opacity: 1;
+        color: rgb(0 61 153 / var(--tw-text-opacity));
+      }
+      .hover\:text-white:hover {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .focus\:border-primary-500:focus {
+        --tw-border-opacity: 1;
+        border-color: rgb(0 102 255 / var(--tw-border-opacity));
+      }
+      .focus\:outline-none:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+      .focus\:ring-2:focus {
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+          var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+          calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+          var(--tw-shadow, 0 0 #0000);
+      }
+      .focus\:ring-blue-600:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(37 99 235 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-primary-500:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(0 102 255 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-white:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
+      }
+      .focus\:ring-offset-2:focus {
+        --tw-ring-offset-width: 2px;
+      }
+      .focus\:ring-offset-white:focus {
+        --tw-ring-offset-color: #fff;
+      }
+      @media (min-width: 640px) {
+        .sm\:my-6 {
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .sm\:mt-0 {
+          margin-top: 0px;
+        }
+        .sm\:block {
+          display: block;
+        }
+        .sm\:flex {
+          display: flex;
+        }
+        .sm\:hidden {
+          display: none;
+        }
+        .sm\:flex-row {
+          flex-direction: row;
+        }
+        .sm\:flex-nowrap {
+          flex-wrap: nowrap;
+        }
+        .sm\:items-center {
+          align-items: center;
+        }
+        .sm\:justify-start {
+          justify-content: flex-start;
+        }
+        .sm\:justify-end {
+          justify-content: flex-end;
+        }
+        .sm\:justify-between {
+          justify-content: space-between;
+        }
+        .sm\:gap-x-7 {
+          column-gap: 1.75rem;
+        }
+        .sm\:gap-y-0 {
+          row-gap: 0px;
+        }
+        .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-x-reverse: 0;
+          margin-right: calc(1rem * var(--tw-space-x-reverse));
+          margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+        }
+        .sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-y-reverse: 0;
+          margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+          margin-bottom: calc(0px * var(--tw-space-y-reverse));
+        }
+        .sm\:border-l {
+          border-left-width: 1px;
+        }
+        .sm\:border-white\/\[\.3\] {
+          border-color: rgb(255 255 255 / 0.3);
+        }
+        .sm\:px-6 {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+        .sm\:py-0 {
+          padding-top: 0px;
+          padding-bottom: 0px;
+        }
+        .sm\:py-6 {
+          padding-top: 1.5rem;
+          padding-bottom: 1.5rem;
+        }
+        .sm\:pl-6 {
+          padding-left: 1.5rem;
+        }
+        .sm\:pl-7 {
+          padding-left: 1.75rem;
+        }
+        .sm\:text-4xl {
+          font-size: 2.25rem;
+          line-height: 2.5rem;
+        }
+        .sm\:text-5xl {
+          font-size: 3rem;
+          line-height: 1;
+        }
+        .sm\:text-sm {
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+        }
+      }
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .md\:text-6xl {
+          font-size: 3.75rem;
+          line-height: 1;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:mt-0 {
+          margin-top: 0px;
+        }
+        .lg\:flex {
+          display: flex;
+        }
+        .lg\:w-1\/2 {
+          width: 50%;
+        }
+        .lg\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .lg\:items-center {
+          align-items: center;
+        }
+        .lg\:justify-between {
+          justify-content: space-between;
+        }
+        .lg\:px-8 {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+        .lg\:text-7xl {
+          font-size: 4.5rem;
+          line-height: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="leading-normal">
+    <element
+      id="4d7a5369-4597-4cb5-825b-9dda72169491"
+      data-section-id="4d7a5369-4597-4cb5-825b-9dda72169491"
+    >
+      <htmlcode>
+        <div id="root">
+          <script src="https://cdn.tailwindcss.com"></script>
+          <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                  fontFamily: {
+                    sans: ["Inter", "sans-serif"],
+                  },
+                  colors: {
+                    primary: {
+                      50: "#e6f0ff",
+                      100: "#cce0ff",
+                      200: "#99c2ff",
+                      300: "#66a3ff",
+                      400: "#3385ff",
+                      500: "#0066ff",
+                      600: "#0284C7",
+                      700: "#003d99",
+                      800: "#002966",
+                      900: "#001433",
+                    },
+                  },
+                },
+              },
+            };
+          </script>
+
+<header
+class="fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-md"
+>
+<nav
+  class="container mx-auto px-4 py-4 flex justify-between items-center"
+>
+  <a href="index.html" class="text-2xl font-bold text-primary-600"
+    >CrisisAid</a
+  >
+  <div class="hidden md:flex space-x-6">
+    <a
+      href="index.html"
+      class="text-gray-600 hover:text-primary-600 transition"
+      >Home</a
+    >
+    <a
+      href="index.html"
+      class="text-gray-600 hover:text-primary-600 transition"
+      >Map</a
+    >
+    <a
+      href="community.html"
+      class="text-gray-600 hover:text-primary-600 transition"
+      >Community</a
+    >
+    <a
+      href="#resourceID"
+      class="text-gray-600 hover:text-primary-600 transition"
+      >Resources</a
+    >
+  </div>
+  <button
+    class="bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700 transition"
+  >
+    SOS
+  </button>
+</nav>
+</header>
+
+          <!-- <header
+            class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-primary-600 text-sm py-3 sm:py-0"
+          >
+            <nav
+              class="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
+              aria-label="Global"
+            >
+              <div class="flex items-center justify-between">
+                <a
+                  class="flex-none text-xl font-semibold text-white"
+                  href="#"
+                  aria-label="CrisisAid"
+                  >CrisisAid</a
+                >
+                <div class="sm:hidden">
+                  <button
+                    type="button"
+                    class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border border-white/[.5] font-medium text-white/[.5] shadow-sm align-middle hover:bg-white/[.1] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm"
+                    data-hs-collapse="#navbar-collapse-with-animation"
+                    aria-controls="navbar-collapse-with-animation"
+                    aria-label="Toggle navigation"
+                  >
+                    <svg
+                      class="hs-collapse-open:hidden w-4 h-4"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="hs-collapse-open:block hidden w-4 h-4"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                id="navbar-collapse-with-animation"
+                class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block"
+              >
+                <div
+                  class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7"
+                >
+                  <a
+                    class="font-medium text-white sm:py-6"
+                    href="index.html"
+                    aria-current="page"
+                    >Home</a
+                  >
+                  <a
+                    class="font-medium text-white/[.8] hover:text-white sm:py-6"
+                    href="#"
+                    >Community</a
+                  >
+                  <a
+                    class="font-medium text-white/[.8] hover:text-white sm:py-6"
+                    href="#"
+                    >Resources</a
+                  >
+                  <a
+                    class="font-medium text-white/[.8] hover:text-white sm:py-6"
+                    href="#"
+                    >Contact</a
+                  >
+                  <a
+                    class="flex items-center gap-x-2 font-medium text-white/[.8] hover:text-white sm:border-l sm:border-white/[.3] sm:my-6 sm:pl-6"
+                    href="#"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
+                      ></path>
+                    </svg>
+                    Log in
+                  </a>
+                </div>
+              </div>
+            </nav>
+          </header> -->
+
+          <!-- <div class="bg-primary-600">
+            <div
+              class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8"
+            >
+              <div class="max-w-3xl text-center mx-auto">
+                <h1
+                  class="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+                >
+                  Unite. Respond. Rebuild.
+                </h1>
+              </div>
+
+              <div class="max-w-3xl text-center mx-auto">
+                <p class="text-lg text-gray-200">
+                  Join our community-driven platform to help those affected by
+                  disasters. Together, we can make a difference.
+                </p>
+              </div>
+
+              <div class="text-center">
+                <a
+                  class="inline-flex justify-center items-center gap-x-3 text-center bg-white hover:bg-gray-100 border border-transparent text-primary-600 text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-6"
+                  href="#"
+                >
+                  Get Started
+                  <svg
+                    class="w-3 h-3"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div> 
+        </div> </htmlcode></element
+    ><element
+      id="9a2111cc-0e9e-49ae-a192-f4a26db1a8e1"
+      data-section-id="9a2111cc-0e9e-49ae-a192-f4a26db1a8e1"
+    >
+      <htmlcode>-->
+        <div id="root">
+          <section class="bg-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 class="text-3xl font-extrabold text-primary-600 mb-8">
+                Disaster Updates
+              </h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Update Card 1 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Hurricane Warning: Eastern Coast
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Category 3 hurricane approaching. Expected landfall in 48
+                      hours. Prepare for evacuation.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                      <svg
+                        class="w-4 h-4 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      Updated 2 hours ago
+                    </div>
+                  </div>
+                  <div class="bg-primary-100 px-6 py-4">
+                    <a
+                      href="#"
+                      class="text-primary-600 font-medium hover:text-primary-500"
+                      >View details →</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Update Card 2 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Earthquake: Central Region
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      6.2 magnitude earthquake reported. Aftershocks expected.
+                      Stay in safe areas.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                      <svg
+                        class="w-4 h-4 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      Updated 5 hours ago
+                    </div>
+                  </div>
+                  <div class="bg-primary-100 px-6 py-4">
+                    <a
+                      href="#"
+                      class="text-primary-600 font-medium hover:text-primary-500"
+                      >View details →</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Update Card 3 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Flood Alert: River Valley
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Heavy rainfall causing river levels to rise. Potential
+                      flooding in low-lying areas.
+                    </p>
+                    <div class="flex items-center text-sm text-gray-500">
+                      <svg
+                        class="w-4 h-4 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      Updated 1 day ago
+                    </div>
+                  </div>
+                  <div class="bg-primary-100 px-6 py-4">
+                    <a
+                      href="#"
+                      class="text-primary-600 font-medium hover:text-primary-500"
+                      >View details →</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-12 text-center">
+                <a
+                  href="#"
+                  class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  View All Updates
+                  <svg
+                    class="ml-2 -mr-1 w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div> </htmlcode></element
+    ><element
+      id="8e368c23-7444-4d16-bc81-eeb20b6ab3f0"
+      data-section-id="8e368c23-7444-4d16-bc81-eeb20b6ab3f0"
+    >
+      <htmlcode>
+        <div id="root">
+          <section class="bg-gray-100 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 class="text-3xl font-extrabold text-primary-600 mb-8">
+                Community Forum
+              </h2>
+
+              <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                    Recent Discussions
+                  </h3>
+
+                  <!-- Discussion Thread 1 -->
+                  <div class="border-b border-gray-200 pb-4 mb-4">
+                    <div class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg
+                          class="h-10 w-10 rounded-full bg-primary-200 text-primary-600 p-2"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div class="ml-4">
+                        <h4 class="text-lg font-medium text-gray-900">
+                          Volunteer Coordination for Flood Relief
+                        </h4>
+                        <p class="mt-1 text-sm text-gray-600">
+                          Started by Rajkumar • 2 hours ago • 15 replies
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Discussion Thread 2 -->
+                  <div class="border-b border-gray-200 pb-4 mb-4">
+                    <div class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg
+                          class="h-10 w-10 rounded-full bg-primary-200 text-primary-600 p-2"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div class="ml-4">
+                        <h4 class="text-lg font-medium text-gray-900">
+                          Emergency Shelter Locations Update
+                        </h4>
+                        <p class="mt-1 text-sm text-gray-600">
+                          Started by Prashant • 1 day ago • 8 replies
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Discussion Thread 3 -->
+                  <div>
+                    <div class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg
+                          class="h-10 w-10 rounded-full bg-primary-200 text-primary-600 p-2"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div class="ml-4">
+                        <h4 class="text-lg font-medium text-gray-900">
+                          Resource Distribution: What's Needed Most?
+                        </h4>
+                        <p class="mt-1 text-sm text-gray-600">
+                          Started by Samar • 3 days ago • 22 replies
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-50 px-6 py-4">
+                  <a
+                    href="#"
+                    class="text-primary-600 font-medium hover:text-primary-500"
+                    >View all discussions →</a
+                  >
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                  Start a New Discussion
+                </h3>
+                <form>
+                  <div class="mb-4">
+                    <label
+                      for="topic"
+                      class="block text-sm font-medium text-gray-700"
+                      >Topic</label
+                    >
+                    <input
+                      type="text"
+                      name="topic"
+                      id="topic"
+                      class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label
+                      for="message"
+                      class="block text-sm font-medium text-gray-700"
+                      >Message</label
+                    >
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="4"
+                      class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  >
+                    Post Discussion
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      </htmlcode></element
+    ><element
+      id="a86a33d9-3b5e-4832-80ca-139b04bf22fa"
+      data-section-id="a86a33d9-3b5e-4832-80ca-139b04bf22fa"
+    >
+      <htmlcode>
+        <div id="resourceID" ></div>
+        <div id="root">
+          <section class="bg-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 class="text-3xl font-extrabold text-primary-600 mb-8">
+                Resource Center
+              </h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Emergency Preparedness Guide -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <svg
+                      class="w-10 h-10 text-primary-500 mb-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      ></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Emergency Preparedness Guide
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Essential information on preparing for various types of
+                      disasters.
+                    </p>
+                    <a
+                      href="#"
+                      class="text-primary-600 hover:text-primary-500 font-medium"
+                      >Download PDF →</a
+                    >
+                  </div>
+                </div>
+
+                <!-- First Aid Training -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <svg
+                      class="w-10 h-10 text-primary-500 mb-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                      ></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      First Aid Training
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Online courses and resources for basic first aid and
+                      emergency response.
+                    </p>
+                    <a
+                      href="#"
+                      class="text-primary-600 hover:text-primary-500 font-medium"
+                      >Access Courses →</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Disaster Recovery Toolkit -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <svg
+                      class="w-10 h-10 text-primary-500 mb-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+                      ></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Disaster Recovery Toolkit
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Comprehensive guides and tools for post-disaster recovery
+                      efforts.
+                    </p>
+                    <a
+                      href="#"
+                      class="text-primary-600 hover:text-primary-500 font-medium"
+                      >Explore Toolkit →</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-12">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+                  Additional Resources
+                </h3>
+                <ul class="space-y-4">
+                  <li>
+                    <a
+                      href="#"
+                      class="flex items-center text-gray-600 hover:text-primary-600"
+                    >
+                      <svg
+                        class="w-5 h-5 mr-2 text-primary-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
+                        ></path>
+                      </svg>
+                      Emergency Contact Directory
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="flex items-center text-gray-600 hover:text-primary-600"
+                    >
+                      <svg
+                        class="w-5 h-5 mr-2 text-primary-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
+                        ></path>
+                      </svg>
+                      Disaster Relief Organizations List
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="flex items-center text-gray-600 hover:text-primary-600"
+                    >
+                      <svg
+                        class="w-5 h-5 mr-2 text-primary-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
+                        ></path>
+                      </svg>
+                      Mental Health Support Resources
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-12 text-center">
+                <a
+                  href="#"
+                  class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  Browse All Resources
+                  <svg
+                    class="ml-2 -mr-1 w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div> </htmlcode></element
+    ><element
+      id="d3486919-1581-40d1-b09a-bf319ec1e8de"
+      data-section-id="d3486919-1581-40d1-b09a-bf319ec1e8de"
+    >
+      <htmlcode>
+        <div id="root">
+          <section class="bg-gray-100 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 class="text-3xl font-extrabold text-primary-600 mb-8">
+                Volunteer Opportunities
+              </h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Opportunity 1 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Emergency Response Team
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Join our rapid response team to assist in immediate
+                      disaster relief efforts.
+                    </p>
+                    <ul class="text-sm text-gray-500 mb-4">
+                      <li class="flex items-center mb-2">
+                        <svg
+                          class="w-4 h-4 mr-2 text-primary-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        Commitment: On-call
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-4 h-4 mr-2 text-primary-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        Location: Various
+                      </li>
+                    </ul>
+                    <a
+                      href="#"
+                      class="inline-block bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition duration-300"
+                      >Apply Now</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Opportunity 2 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Community Outreach Coordinator
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Help organize and coordinate local disaster preparedness
+                      workshops.
+                    </p>
+                    <ul class="text-sm text-gray-500 mb-4">
+                      <li class="flex items-center mb-2">
+                        <svg
+                          class="w-4 h-4 mr-2 text-primary-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        Commitment: 10 hours/week
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-4 h-4 mr-2 text-primary-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        Location: Remote
+                      </li>
+                    </ul>
+                    <a
+                      href="#"
+                      class="inline-block bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition duration-300"
+                      >Apply Now</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Opportunity 3 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Disaster Recovery Specialist
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Assist in long-term recovery efforts for communities
+                      affected by disasters.
+                    </p>
+                    <ul class="text-sm text-gray-500 mb-4">
+                      <li class="flex items-center mb-2">
+                        <svg
+                          class="w-4 h-4 mr-2 text-primary-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        Commitment: Full-time, 3-6 months
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-4 h-4 mr-2 text-primary-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        Location: On-site (various locations)
+                      </li>
+                    </ul>
+                    <a
+                      href="#"
+                      class="inline-block bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition duration-300"
+                      >Apply Now</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-12 text-center">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+                  Can't find a suitable role?
+                </h3>
+                <p class="text-gray-600 mb-6">
+                  We're always looking for passionate volunteers. Let us know
+                  how you'd like to contribute!
+                </p>
+                <a
+                  href="#"
+                  class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  Contact Volunteer Coordinator
+                  <svg
+                    class="ml-2 -mr-1 w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div> </htmlcode></element
+    ><element
+      id="107b2f34-aca0-4121-916e-8d1b13dee774"
+      data-section-id="107b2f34-aca0-4121-916e-8d1b13dee774"
+    >
+      <htmlcode>
+        <div id="root">
+          <section class="bg-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 class="text-3xl font-extrabold text-primary-600 mb-8">
+                Emergency Contacts
+              </h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Emergency Services -->
+                <div class="bg-gray-100 rounded-lg p-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                    Emergency Services
+                  </h3>
+                  <ul class="space-y-3">
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-red-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                        ></path>
+                      </svg>
+                      <span class="font-medium">Emergency: 112</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-blue-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        ></path>
+                      </svg>
+                      <span>Police: (555) 123-4567</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-red-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+                        ></path>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+                        ></path>
+                      </svg>
+                      <span>Fire Department: (555) 987-6543</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Medical Services -->
+                <div class="bg-gray-100 rounded-lg p-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                    Medical Services
+                  </h3>
+                  <ul class="space-y-3">
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-green-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                        ></path>
+                      </svg>
+                      <span>City Hospital: (555) 789-0123</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-red-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        ></path>
+                      </svg>
+                      <span>Poison Control: (800) 222-1222</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-blue-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        ></path>
+                      </svg>
+                      <span>Mental Health Hotline: (800) 273-8255</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- CrisisAid Contacts -->
+                <div class="bg-gray-100 rounded-lg p-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                    CrisisAid Contacts
+                  </h3>
+                  <ul class="space-y-3">
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-primary-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        ></path>
+                      </svg>
+                      <span>24/7 Helpline: (555) 234-5678</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-primary-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        ></path>
+                      </svg>
+                      <span>Email: help@crisisaid.org</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="w-5 h-5 text-primary-500 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        ></path>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        ></path>
+                      </svg>
+                      <span>Main Office: 123 Disaster Relief Street, New
+                        Delhi, India 110001</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-12 text-center">
+                <p class="text-gray-600 mb-4">
+                  Remember, in case of an immediate emergency, always call 112
+                  first.
+                </p>
+                <a
+                  href="#"
+                  class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  Download Emergency Contact Card
+                  <svg
+                    class="ml-2 -mr-1 w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div> </htmlcode></element
+    ><element
+      id="6d5d1d4f-21c0-42d0-a618-017ce54b8297"
+      data-section-id="6d5d1d4f-21c0-42d0-a618-017ce54b8297"
+    >
+      <htmlcode>
+        <div id="root">
+          <section class="bg-gray-100 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2
+                class="text-3xl font-extrabold text-primary-600 mb-8 text-center"
+              >
+                Success Stories
+              </h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Story 1 -->
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Community Rebuilds After Flood
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      When devastating floods hit Riverside, our volunteers
+                      mobilized quickly to provide immediate relief and
+                      long-term rebuilding support.
+                    </p>
+                    <div class="flex items-center mb-4">
+                      <svg
+                        class="w-5 h-5 text-yellow-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                        ></path>
+                      </svg>
+                      <span class="text-gray-600 ml-1"
+                        >200+ families assisted</span
+                      >
+                    </div>
+                    <a
+                      href="#"
+                      class="text-primary-600 hover:text-primary-700 font-medium"
+                      >Read full story →</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Rapid Response to Wildfire Crisis
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      Our emergency response team provided crucial support
+                      during the recent wildfires, coordinating evacuations and
+                      setting up temporary shelters.
+                    </p>
+                    <div class="flex items-center mb-4">
+                      <svg
+                        class="w-5 h-5 text-yellow-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                        ></path>
+                      </svg>
+                      <span class="text-gray-600 ml-1"
+                        >1000+ evacuees safely relocated</span
+                      >
+                    </div>
+                    <a
+                      href="#"
+                      class="text-primary-600 hover:text-primary-700 font-medium"
+                      >Read full story →</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                      Hurricane Recovery Efforts
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                      In the aftermath of Hurricane Maria, our team worked
+                      tirelessly to restore power, provide clean water, and
+                      rebuild critical infrastructure.
+                    </p>
+                    <div class="flex items-center mb-4">
+                      <svg
+                        class="w-5 h-5 text-yellow-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                        ></path>
+                      </svg>
+                      <span class="text-gray-600 ml-1"
+                        >50+ communities rebuilt</span
+                      >
+                    </div>
+                    <a
+                      href="#"
+                      class="text-primary-600 hover:text-primary-700 font-medium"
+                      >Read full story →</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-12 text-center">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+                  Your Support Makes a Difference
+                </h3>
+                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                  Every donation, every volunteer hour, and every act of
+                  kindness contributes to our mission of helping communities
+                  recover and rebuild after disasters.
+                </p>
+                <div class="flex justify-center space-x-4">
+                  <a
+                    href="#"
+                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  >
+                    Donate Now
+                  </a>
+                  <a
+                    href="#"
+                    class="inline-flex items-center px-6 py-3 border border-primary-600 text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  >
+                    Volunteer
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </htmlcode></element
+    ><element
+      id="860b8d3c-e2ee-481f-8057-92c832dcf0ea"
+      data-section-id="860b8d3c-e2ee-481f-8057-92c832dcf0ea"
+    >
+      <htmlcode>
+        <div id="root">
+          <section class="bg-primary-600 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                  <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    Your Support Can Make a Difference
+                  </h2>
+                  <p class="mt-3 max-w-3xl text-lg text-primary-100">
+                    Every donation helps us respond quickly to disasters,
+                    provide relief to those affected, and support long-term
+                    recovery efforts. Join us in making a positive impact.
+                  </p>
+                  <div class="mt-8 space-y-4 sm:space-y-0 sm:flex sm:space-x-4">
+                    <a
+                      href="#donate-form"
+                      class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+                    >
+                      Donate Now
+                    </a>
+                    <a
+                      href="#"
+                      class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-500 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                    >
+                      Learn More
+                    </a>
+                  </div>
+                </div>
+                <div class="mt-10 lg:mt-0 lg:w-1/2">
+                  <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                    <div class="px-6 py-8" id="donate-form">
+                      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+                        Make a Donation
+                      </h3>
+                      <form action="#" method="POST">
+                        <div class="space-y-6">
+                          <div>
+                            <label
+                              for="amount"
+                              class="block text-sm font-medium text-gray-700"
+                              >Donation Amount</label
+                            >
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                              <div
+                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                              >
+                                <span class="text-gray-500 sm:text-sm">$</span>
+                              </div>
+                              <input
+                                type="text"
+                                name="amount"
+                                id="amount"
+                                class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
+                                placeholder="0.00"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label
+                              for="name"
+                              class="block text-sm font-medium text-gray-700"
+                              >Full Name</label
+                            >
+                            <input
+                              type="text"
+                              name="name"
+                              id="name"
+                              class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div>
+                            <label
+                              for="email"
+                              class="block text-sm font-medium text-gray-700"
+                              >Email Address</label
+                            >
+                            <input
+                              type="email"
+                              name="email"
+                              id="email"
+                              class="mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div>
+                            <button
+                              type="submit"
+                              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                            >
+                              Donate Now
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </htmlcode></element
+    >
+    <div id="page_complete">
+      <script>
+        console.log("Page complete");
+      </script>
+    </div>
+  </body>
+</html>
