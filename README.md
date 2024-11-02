@@ -39,7 +39,6 @@ Click the "Download Complete Safety Guide" button to download the PDF.
 And other resources.
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/89c13f75-c03a-446d-b09d-630fbc3d3877)
-![image](https://github.com/user-attachments/assets/ebd14ed5-e1dd-42f0-a735-46eb2dbc5738)
 ![image](https://github.com/user-attachments/assets/9ea23ec4-77ad-4148-82aa-ab2f79ab7e65)
 ![image](https://github.com/user-attachments/assets/59123cd8-2d0b-46d9-8716-4f58c7588c14)
 
@@ -49,8 +48,8 @@ Integrate more APIs for real-time disaster updates.
 Enhance map visualization with user-customizable layers.
 
 ## Acknowledgments
-Your Libraries/Frameworks - Acknowledgment of any libraries or frameworks used.
-Inspiration for the project and any contributors.
+Framework used for styling : tailwing css
+Other API's : Windy, Vulture cloud services
 
 ## Contact
 For questions or suggestions, feel free to reach out:
