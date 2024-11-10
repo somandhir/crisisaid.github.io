@@ -14,7 +14,7 @@ It is a **prototype of The Disaster Management web application** which provides 
 To get a local copy of the project, clone the repository:
 
 ```bash
-git clone https://github.com/somandhir/Vulture-Hackathon-Disaster-Management-Project.git
+git clone https://github.com/somandhir/crisisaid.github.io.git
 ```
 ## Prerequisites
 A modern web browser (e.g., Chrome, Firefox, Safari) to view the web pages.
